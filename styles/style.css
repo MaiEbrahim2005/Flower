@@ -73,7 +73,6 @@ header .navBar a{
 }
 header .navBar a:hover{
     color: var(--pink);
-
 }
 header .icons a{
     font-size: 3rem;
@@ -197,7 +196,6 @@ header .fa-bars {
 }
 .products .box-container .box .image img{
     height: 25rem;
-
 }
 .products .box-container .box:hover {
     transform: scale(1.02);    
@@ -219,10 +217,9 @@ header .fa-bars {
     color:#fff ;
 }
 .products .box-container .box .image .icons .cart-btn{
-    border-left: .2rem solid #fff7;
-    border-right: .2rem solid #fff7;
+    border: .2rem solid #fff7;
+    /* border-right: .2rem solid #fff7; */
     width: 100%;
-
 }
 .products .box-container .box .image .icons a:hover{
     background:#333 ;
@@ -306,7 +303,6 @@ header .fa-bars {
     display: flex;
     flex-wrap: wrap;
     gap: 1.5rem;
-    
 }
 .contact .row form  {
     flex: 1 1 40rem;
@@ -319,7 +315,6 @@ header .fa-bars {
 }
 .contact .row .image{
     flex: 1 1 40rem;
-
 }
 .contact .row .image img {
     width: 100%;
@@ -389,8 +384,7 @@ header .fa-bars {
     }
     section{
         padding: 2rem;
-    }
-    
+    }  
 }
 @media (max-width: 768px) {
     header .fa-bars {
@@ -432,7 +426,6 @@ header .fa-bars {
     .heading{
         font-size: 3rem;
     }
-
 }
 header .icons a span {
     font-size: 1.5rem;
@@ -440,7 +433,6 @@ header .icons a span {
     font-weight: bold;
     margin-left: 0.5rem;
 }
-/* تنسيق رقم السلة (Badge) */
 #cart-badge {
     position: absolute;
     top: -10px;
@@ -455,51 +447,27 @@ header .icons a span {
     text-align: center;
     font-weight: bold;
 }
-
-/* تنسيق التنبيه الجديد (Custom Notification) */
-.cart-notification {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-    background: #fff;
-    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.15);
-    border-left: .5rem solid var(--pink);
-    padding: 1.5rem 2rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    z-index: 2000;
-    border-radius: .5rem;
-    transform: translateX(120%); /* مخفي بره الشاشة */
-    transition: transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
 .cart-notification.active {
     transform: translateX(0);
 }
-
 .cart-notification img {
     height: 5rem;
     width: 5rem;
     object-fit: cover;
     border-radius: .5rem;
 }
-
 .cart-notification p {
     font-size: 1.4rem;
     color: #333;
 }
-/* تنسيق لينك السلة عشان يشيل الرقم جواه */
 .icons a.fa-shopping-cart {
-    position: relative; /* ده أهم سطر عشان الرقم ميهربش */
+    position: relative;
     display: inline-block;
 }
-
-/* تنسيق الرقم (الدايرة) */
 #cart-badge {
     position: absolute;
-    top: -12px; /* تحريك لفوق */
-    right: -12px; /* تحريك لليمين */
+    top: -12px; 
+    right: -12px; 
     background: var(--pink);
     color: #fff;
     font-size: 1.2rem;
@@ -510,7 +478,7 @@ header .icons a span {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    border: 2px solid #fff; /* إطار أبيض عشان يبان */
+    border: 2px solid #fff; 
     box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    pointer-events: none; /* عشان ميعطلش الكليك على العربية */
+    pointer-events: none; 
 }
