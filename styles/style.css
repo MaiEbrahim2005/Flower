@@ -434,3 +434,83 @@ header .fa-bars {
     }
 
 }
+header .icons a span {
+    font-size: 1.5rem;
+    color: var(--pink);
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+/* تنسيق رقم السلة (Badge) */
+#cart-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--pink);
+    color: #fff;
+    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
+    line-height: 2rem;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* تنسيق التنبيه الجديد (Custom Notification) */
+.cart-notification {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    background: #fff;
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.15);
+    border-left: .5rem solid var(--pink);
+    padding: 1.5rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    z-index: 2000;
+    border-radius: .5rem;
+    transform: translateX(120%); /* مخفي بره الشاشة */
+    transition: transform .4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.cart-notification.active {
+    transform: translateX(0);
+}
+
+.cart-notification img {
+    height: 5rem;
+    width: 5rem;
+    object-fit: cover;
+    border-radius: .5rem;
+}
+
+.cart-notification p {
+    font-size: 1.4rem;
+    color: #333;
+}
+/* تنسيق لينك السلة عشان يشيل الرقم جواه */
+.icons a.fa-shopping-cart {
+    position: relative; /* ده أهم سطر عشان الرقم ميهربش */
+    display: inline-block;
+}
+
+/* تنسيق الرقم (الدايرة) */
+#cart-badge {
+    position: absolute;
+    top: -12px; /* تحريك لفوق */
+    right: -12px; /* تحريك لليمين */
+    background: var(--pink);
+    color: #fff;
+    font-size: 1.2rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid #fff; /* إطار أبيض عشان يبان */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    pointer-events: none; /* عشان ميعطلش الكليك على العربية */
+}
