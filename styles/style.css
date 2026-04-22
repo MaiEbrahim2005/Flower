@@ -22,7 +22,7 @@ html{
 section{
     padding:2rem 9% ;
 }
-.btn{
+.btn,.sub-btn{
     display: inline-block;
     margin-top: 1rem;
     border-radius: 5rem;
@@ -218,7 +218,6 @@ header .fa-bars {
 }
 .products .box-container .box .image .icons .cart-btn{
     border: .2rem solid #fff7;
-    /* border-right: .2rem solid #fff7; */
     width: 100%;
 }
 .products .box-container .box .image .icons a:hover{
@@ -249,19 +248,21 @@ header .fa-bars {
     text-align: center;
     margin-top: 2rem;
 }
-.review .box-container{
+.review .box-container {
     display: flex;
-    flex-wrap: wrap ;
-    gap: 1.5rem;
-
+    flex-wrap: wrap;
+    gap: 2rem; /* المسافة بين الكروت */
+    align-items: stretch; /* عشان يخلي كل الكروت نفس الطول لو الكلام اختلف */
 }
-.review .box-container .box{
-    flex: 1 1 30rem ;
+
+.review .box-container .box {
+    flex: 1 1 45rem; /* ده هيخليهم ياخدوا مساحة متساوية وينزلوا لو الشاشة صغرت */
     box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.1);
     border-radius: .5rem;
     padding: 3rem 2rem;
     position: relative;
-    border: 1rem solid rgba(0,0,0,.1);
+    border: .1rem solid rgba(0,0,0,.1);
+    background: #fff;
 }
 .review .box-container .box .fa-quote-right{
     position: absolute;
@@ -339,6 +340,373 @@ header .fa-bars {
 .contact .row form textarea{
     height:15rem ;
     resize: none;
+}
+header .icons a span {
+    font-size: 1.5rem;
+    color: var(--pink);
+    font-weight: bold;
+    margin-left: 0.5rem;
+}
+#cart-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    background: var(--pink);
+    color: #fff;
+    font-size: 1.2rem;
+    height: 2rem;
+    width: 2rem;
+    line-height: 2rem;
+    border-radius: 50%;
+    text-align: center;
+    font-weight: bold;
+}
+.icons a.fa-shopping-cart {
+    position: relative;
+    display: inline-block;
+}
+#cart-badge {
+    position: absolute;
+    top: -12px; 
+    right: -12px; 
+    background: var(--pink);
+    color: #fff;
+    font-size: 1.2rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    border: 2px solid #fff; 
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    pointer-events: none; 
+}
+/* تنسيق التنبيه الشيك */
+.custom-notification {
+    position: fixed;
+    bottom: 20px;
+    right: -400px; /* بيبدأ وهو مستخبي يمين الشاشة */
+    background: #fff;
+    padding: 12px 20px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+    z-index: 99999; /* عشان يظهر فوق أي حاجة */
+    transition: right 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border-left: 6px solid #e84393; /* لون الورد البينك بتاعك */
+}
+
+/* الكلاس ده الجافا سكريبت بيضيفه عشان يخلي التنبيه يدخل الشاشة */
+.custom-notification.show {
+    right: 20px;
+}
+
+.custom-notification img {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 4px;
+}
+
+.custom-notification h4 {
+    font-size: 1.4rem;
+    color: #333;
+    margin: 0;
+}
+
+.custom-notification p {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0;
+}
+/* --- Elegant Flower Shop Cart Style --- */
+
+.cart-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.cart-item-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,.05);
+    border: .1rem solid rgba(255, 51, 153, 0.1);
+}
+
+.item-img img {
+    width: 10rem;
+    height: 10rem;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.item-info {
+    flex: 1;
+    padding: 0 3rem;
+}
+
+.item-info h3 {
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: .5rem;
+}
+
+.unit-p {
+    font-size: 1.5rem;
+    color: #888;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 1.5rem;
+}
+
+/* زر الحذف كـ Link رقيق */
+.remove-link {
+    background: none;
+    color: #ff5e57;
+    font-size: 1.4rem;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* تحكم الكمية رقيق جداً */
+.qty-selector {
+    display: flex;
+    align-items: center;
+    border: .1rem solid #eee;
+    border-radius: 5rem;
+    padding: .5rem 1.5rem;
+    gap: 1.5rem;
+}
+
+.qty-selector button {
+    background: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: var(--pink);
+}
+
+.qty-selector span {
+    font-size: 1.6rem;
+    font-weight: bold;
+}
+
+.item-total-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--pink);
+}
+
+/* كارت الإجمالي */
+.cart-summary-card {
+    max-width: 1000px;
+    margin: 3rem auto;
+    padding: 3rem;
+    background: #fffafc;
+    border-radius: 1.5rem;
+    border: .1rem dashed var(--pink);
+}
+
+.total-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 3rem;
+    border-bottom: .1rem solid #eee;
+    padding-bottom: 1rem;
+}
+
+.checkout-form {
+    display: grid;
+    gap: 1.5rem;
+}
+
+.checkout-form input {
+    width: 100%;
+    padding: 1.2rem;
+    font-size: 1.6rem;
+    border: .1rem solid #ddd;
+    border-radius: .5rem;
+}
+
+.sub-heading {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 5rem;
+}
+
+.empty-cart i {
+    font-size: 7rem;
+    color: #eee;
+    margin-bottom: 2rem;
+}
+
+.empty-cart p {
+    font-size: 2rem;
+    color: #666;
+    margin-bottom: 2rem;
+}
+/* --- Elegant Flower Cart CSS --- */
+
+.cart-wrapper {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding-bottom: 2rem;
+}
+
+.cart-item-card {
+    display: flex;
+    align-items: center;
+    background: #fff;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 .5rem 1.5rem rgba(0,0,0,0.03);
+    border: .1rem solid #f1f1f1;
+}
+
+.item-img img {
+    width: 12rem;
+    height: 12rem;
+    object-fit: cover;
+    border-radius: 1rem;
+}
+
+.item-info {
+    flex: 1;
+    padding: 0 4rem;
+}
+
+.item-info h3 {
+    font-size: 2.2rem;
+    color: #333;
+}
+
+.unit-p {
+    font-size: 1.6rem;
+    color: #999;
+    margin: .5rem 0;
+}
+
+.item-actions {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.qty-selector {
+    display: flex;
+    align-items: center;
+    background: #fdfdfd;
+    border: .1rem solid #eee;
+    border-radius: 5rem;
+    padding: .5rem 1.2rem;
+    gap: 1.5rem;
+}
+
+.qty-selector button {
+    background: none;
+    font-size: 2rem;
+    color: var(--pink);
+    cursor: pointer;
+}
+
+.qty-selector span {
+    font-size: 1.8rem;
+    font-weight: bold;
+}
+
+.remove-link {
+    background: none;
+    color: #ff7675;
+    font-size: 1.4rem;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.item-total-column {
+    text-align: right;
+}
+
+.total-label {
+    font-size: 1.2rem;
+    color: #bbb;
+    text-transform: uppercase;
+}
+
+.total-val {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--pink);
+}
+
+/* ستايل الـ Badge */
+#cart-badge {
+    position: absolute;
+    top: -12px;
+    right: -12px;
+    background: var(--pink);
+    color: #fff;
+    font-size: 1.2rem;
+    width: 2.2rem;
+    height: 2.2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #fff;
+    font-weight: bold;
+}
+
+/* تنسيق الفورمة والجماليات */
+.cart-summary-card {
+    max-width: 1000px;
+    margin: 4rem auto;
+    padding: 3rem;
+    background: #fff;
+    border-radius: 1.5rem;
+    border: 1px solid #eee;
+}
+
+.form-input {
+    width: 100%;
+    margin-bottom: 1.5rem;
+    padding: 1.5rem;
+    border: 1px solid #eee;
+    font-size: 1.6rem;
+    border-radius: .5rem;
+}
+
+.empty-cart {
+    text-align: center;
+    padding: 10rem 0;
+}
+
+.empty-cart i {
+    font-size: 8rem;
+    color: #f1f1f1;
+    margin-bottom: 2rem;
 }
 .footer .box-container{
     display: flex;
@@ -426,59 +794,4 @@ header .fa-bars {
     .heading{
         font-size: 3rem;
     }
-}
-header .icons a span {
-    font-size: 1.5rem;
-    color: var(--pink);
-    font-weight: bold;
-    margin-left: 0.5rem;
-}
-#cart-badge {
-    position: absolute;
-    top: -10px;
-    right: -10px;
-    background: var(--pink);
-    color: #fff;
-    font-size: 1.2rem;
-    height: 2rem;
-    width: 2rem;
-    line-height: 2rem;
-    border-radius: 50%;
-    text-align: center;
-    font-weight: bold;
-}
-.cart-notification.active {
-    transform: translateX(0);
-}
-.cart-notification img {
-    height: 5rem;
-    width: 5rem;
-    object-fit: cover;
-    border-radius: .5rem;
-}
-.cart-notification p {
-    font-size: 1.4rem;
-    color: #333;
-}
-.icons a.fa-shopping-cart {
-    position: relative;
-    display: inline-block;
-}
-#cart-badge {
-    position: absolute;
-    top: -12px; 
-    right: -12px; 
-    background: var(--pink);
-    color: #fff;
-    font-size: 1.2rem;
-    width: 2.2rem;
-    height: 2.2rem;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-    border: 2px solid #fff; 
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    pointer-events: none; 
 }

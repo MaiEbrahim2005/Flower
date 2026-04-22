@@ -3,15 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Cart</title>
+    <title>Flower Shop | My Cart</title>
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="icon" type="image/png" href="assets/images/flower-bouquet.png" />
+    <style>
+        .icons a {
+            position: relative;
+            display: inline-block;
+        }
+        #cart-badge {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: #e84393; 
+            color: #fff;
+            font-size: 1.2rem;
+            width: 2.2rem;
+            height: 2.2rem;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
     <header>
         <input type="checkbox" id="toggler">
         <label for="toggler" class="fas fa-bars"></label>
-        <a href="index.html" class="logo">flower <span>.</span></a>
+        <a href="index.html" class="logo">flower<span>.</span></a>
         <nav class="navBar">
             <a href="index.html#home">home</a>
             <a href="index.html#about">about</a>
@@ -20,61 +45,115 @@
             <a href="index.html#contact">contact</a>
         </nav>
         <div class="icons">
-            <a href="cart.html" class="fas fa-shopping-cart" style="position: relative;"></a>
+            <a href="cart.html" class="fas fa-shopping-cart">
+                <span id="cart-badge">0</span>
+            </a>
         </div>
     </header>
 
-    <section class="products" style="padding-top: 12rem;">
+    <section class="cart-section" style="padding-top: 15rem;">
         <h1 class="heading"> shopping <span>cart</span> </h1>
-        <div id="cart-container" class="box-container"></div>
         
-        <div id="checkout-section" style="display:none; text-align: center; margin-top: 3rem;">
-            <h2 class="heading"><span>Order</span> Details</h2>
-            <form style="max-width: 500px; margin: auto; padding: 20px; box-shadow: 0 .5rem 1rem rgba(0,0,0,.1);">
-                <input type="text" placeholder="Your Name" class="box" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc;">
-                <input type="text" placeholder="Phone Number" class="box" style="width:100%; padding:10px; margin:10px 0; border:1px solid #ccc;">
-                <button class="btn">Confirm Order</button>
-            </form>
+        <div id="cart-container" class="cart-wrapper">
+            </div>
+
+        <div id="cart-footer" class="cart-summary-card" style="display: none;">
+            <div class="total-row">
+                <span>Total:</span>
+                <span id="final-price">0 LE</span>
+            </div>
+            <div id="checkout-section">
+                <h2 class="sub-heading">Checkout Details</h2>
+                <form class="checkout-form">
+                    <input type="text" placeholder="Full Name" required class="form-input">
+                    <input type="number" placeholder="Phone Number" required class="form-input">
+                    <input type="text" placeholder="Adress" required class="form-input">
+
+                    <button type="submit" class="sub-btn">Place Order Now</button>
+                </form>
+            </div>
         </div>
     </section>
-
     <script>
+        function updateBadgeCount() {
+            const badge = document.getElementById('cart-badge');
+            let cart = JSON.parse(localStorage.getItem('flowers_cart')) || [];
+            
+            if(badge) {
+                const totalItems = cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
+                badge.innerText = totalItems;
+                badge.style.display = totalItems >= 0 ? 'flex' : 'none';
+            }
+        }
         function renderCart() {
             const container = document.getElementById('cart-container');
-            const checkout = document.getElementById('checkout-section');
+            const footer = document.getElementById('cart-footer');
+            const finalPriceElem = document.getElementById('final-price');
             let cart = JSON.parse(localStorage.getItem('flowers_cart')) || [];
-
+            updateBadgeCount();
             if(cart.length === 0) {
-                container.innerHTML = '<h2 style="width:100%; text-align:center;">Cart is empty </h2>';
-                checkout.style.display = 'none';
+                container.innerHTML = `
+                    <div class="empty-cart" style="text-align:center; padding: 5rem;">
+                        <i class="fas fa-shopping-basket" style="font-size: 8rem; color: #eee;"></i>
+                        <p style="font-size: 2rem; color: #666; margin-top: 2rem;">Your cart is empty. Let's pick some flowers!</p>
+                        <a href="products.html" class="btn" style="margin-top: 2rem; display: inline-block;">Go to Shop</a>
+                    </div>`;
+                footer.style.display = 'none';
                 return;
             }
 
-            checkout.style.display = 'block';
-            container.innerHTML = cart.map((item, index) => `
-                <div class="box">
-                    <div class="image"><img src="${item.image}"></div>
-                    <div class="content">
-                        <h3>${item.name}</h3>
-                        <div class="price">${item.price}</div>
-                        <p style="font-size: 1.5rem; margin: 10px 0;">Quantity: <b>${item.quantity}</b></p>
-                        <button onclick="deleteItem(${index})" class="btn" style="background:red;">Delete</button>
-                    </div>
-                </div>
-            `).join('');
-        }
+            footer.style.display = 'block';
+            let grandTotal = 0;
 
+            container.innerHTML = cart.map((item, index) => {
+                const unitPrice = parseInt(item.price) || 0;
+                const subTotal = unitPrice * item.quantity;
+                grandTotal += subTotal;
+
+                return `
+                <div class="cart-item-card">
+                    <div class="item-img">
+                        <img src="${item.image}" alt="${item.name}">
+                    </div>
+                    <div class="item-info">
+                        <h3>${item.name}</h3>
+                        <p class="unit-p">Unit Price: ${unitPrice} LE</p>
+                        
+                        <div class="item-actions">
+                            <div class="qty-selector">
+                                <button onclick="updateQty(${index}, -1)">-</button>
+                                <span>${item.quantity}</span>
+                                <button onclick="updateQty(${index}, 1)">+</button>
+                            </div>
+                            <button class="remove-link" onclick="deleteItem(${index})">Remove Item</button>
+                        </div>
+                    </div>
+                    <div class="item-total-column">
+                        <p class="total-label">Subtotal</p>
+                        <span class="total-val">${subTotal} LE</span>
+                    </div>
+                </div>`;
+            }).join('');
+
+            finalPriceElem.innerText = grandTotal + " LE";
+        }
+        function updateQty(index, change) {
+            let cart = JSON.parse(localStorage.getItem('flowers_cart')) || [];
+            if(cart[index].quantity + change > 0) {
+                cart[index].quantity += change;
+                localStorage.setItem('flowers_cart', JSON.stringify(cart));
+                renderCart(); 
+            } else {
+                deleteItem(index);
+            }
+        }
         function deleteItem(index) {
             let cart = JSON.parse(localStorage.getItem('flowers_cart')) || [];
             cart.splice(index, 1);
             localStorage.setItem('flowers_cart', JSON.stringify(cart));
             renderCart();
-            // لتحديث الرقم في الهيدر لو كنتي رابطة script.js
-            if(typeof updateCartBadge === "function") updateCartBadge();
         }
-
-        renderCart();
+        window.addEventListener('load', renderCart);
     </script>
-    <script src="main/script.js"></script>
 </body>
 </html>
