@@ -7,32 +7,10 @@
     <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="icon" type="image/png" href="assets/images/flower-bouquet.png" />
-    <style>
-        .icons a {
-            position: relative;
-            display: inline-block;
-        }
-        #cart-badge {
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            background: #e84393; 
-            color: #fff;
-            font-size: 1.2rem;
-            width: 2.2rem;
-            height: 2.2rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            border: 2px solid #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            z-index: 10;
-        }
-    </style>
+    
 </head>
 <body>
+    <!--مكرر في كل صفحة-->
     <header>
         <input type="checkbox" id="toggler">
         <label for="toggler" class="fas fa-bars"></label>
@@ -54,7 +32,7 @@
     <section class="cart-section" style="padding-top: 15rem;">
         <h1 class="heading"> shopping <span>cart</span> </h1>
         
-        <div id="cart-container" class="cart-wrapper">
+        <div id="cart-container" class="cart-wrapper"> <!--هيتملي بالجافا-->
             </div>
 
         <div id="cart-footer" class="cart-summary-card" style="display: none;">
@@ -75,45 +53,35 @@
         </div>
     </section>
     <script>
-        function updateBadgeCount() {
-            const badge = document.getElementById('cart-badge');
-            let cart = JSON.parse(localStorage.getItem('flowers_cart')) || [];
-            
-            if(badge) {
-                const totalItems = cart.reduce((sum, item) => sum + (parseInt(item.quantity) || 0), 0);
-                badge.innerText = totalItems;
-                badge.style.display = totalItems >= 0 ? 'flex' : 'none';
-            }
-        }
+        // لو الكارت فاضيه هظهرلو مسج والفوتر هيبقا display none
         function renderCart() {
             const container = document.getElementById('cart-container');
             const footer = document.getElementById('cart-footer');
             const finalPriceElem = document.getElementById('final-price');
             let cart = JSON.parse(localStorage.getItem('flowers_cart')) || [];
-            updateBadgeCount();
-            if(cart.length === 0) {
+           if(cart.length === 0) { 
                 container.innerHTML = `
                     <div class="empty-cart" style="text-align:center; padding: 5rem;">
                         <i class="fas fa-shopping-basket" style="font-size: 8rem; color: #eee;"></i>
                         <p style="font-size: 2rem; color: #666; margin-top: 2rem;">Your cart is empty. Let's pick some flowers!</p>
                         <a href="products.html" class="btn" style="margin-top: 2rem; display: inline-block;">Go to Shop</a>
                     </div>`;
-                footer.style.display = 'none';
+                footer.style.display = 'none'; 
                 return;
             }
-
+            // غير كده ف هظهر الفوتر عادي واحط توتال السعر بصفر
             footer.style.display = 'block';
             let grandTotal = 0;
 
-            container.innerHTML = cart.map((item, index) => {
-                const unitPrice = parseInt(item.price) || 0;
-                const subTotal = unitPrice * item.quantity;
+            container.innerHTML = cart.map((item, index) => { //لو السلة فيها ف انا بلف ع الاراي عنصر عنصر
+                const unitPrice = parseInt(item.price) || 0; //احول السعر لرقم int
+                const subTotal = unitPrice * item.quantity; 
                 grandTotal += subTotal;
-
+                //برجع صورة المنتج واسمه وسعره
                 return `
                 <div class="cart-item-card">
                     <div class="item-img">
-                        <img src="${item.image}" alt="${item.name}">
+                        <img src="${item.image}" alt="${item.name}"> 
                     </div>
                     <div class="item-info">
                         <h3>${item.name}</h3>
